@@ -1,0 +1,38 @@
+{
+    "name": "time-for-code",
+    "version": "1.0.0",
+    "description": "App para educação voltada a tecnologia computacional",
+    "main": "server.js",
+    "type": "module",
+    "license": "AGPL-version-3.0",
+    "private": false,
+    "engines": {
+        "node": ">= 14.0.0",
+        "npm": ">= 6.0.0"
+    },
+    "homepage": "",
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "bugs": "",
+    "keywords": [],
+    "author": {
+        "name": "",
+        "email": "",
+        "url": ""
+    },
+    "contributors": [],
+    "scripts": {
+        "dev": "node --watch --env-file=.env server.js",
+        "test": ""
+    },
+    "dependencies": {
+        "": "file:",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "ejs": "^3.1.10",
+        "express": "^4.21.1",
+        "pg": "^8.12.0"
+    }
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/cadastro.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+</head>
+<body>
+    <img class="wave" src="img/wave.png">
+    <div class="container">
+        <div class="img">
+            <img src="img/Ativo10.png">
+        </div>
+        <div class="login-content">
+            <form action="/cadastro" method="POST">
+                
+                <h2 class="title">Cadastro</h2>
+                
+                <!-- Campo para Nome Completo -->
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Nome Completo</h5>
+                        <input type="text" class="input" name="nome" required>
+                    </div>
+                </div>
+        
+                <!-- Campo para Ano de Nascimento -->
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Ano de Nascimento</h5>
+                        <input type="text" class="input year-input" id="birthyear" maxlength="4" name="ano_nascimento" required>
+                    </div>
+                </div>
+        
+                <!-- Campo para E-mail dos Pais -->
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="div">
+                        <h5>E-mail dos Pais</h5>
+                        <input type="email" class="input" name="email" required>
+                    </div>
+                </div>
+        
+                <!-- Campo para Senha -->
+                <div class="input-div pass">
+                    <div class="i"> 
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Senha</h5>
+                        <input type="password" class="input" name="senha" required>
+                    </div>
+                </div>
+        
+                <!-- Campo para Confirmar Senha -->
+                <div class="input-div pass">
+                    <div class="i"> 
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Confirmar Senha</h5>
+                        <input type="password" class="input" qrequired>
+                    </div>
+                </div>
+        
+                <!-- Botão de Cadastrar -->
+                <div class="border-first-button">
+                    <input type="submit" class="btn" value="Cadastrar">
+                </div>
+        
+                <!-- Adicionando o link de login aqui -->
+                <p class="login-message">Já tem uma conta? <a href="login.ejs">Faça login!</a></p>
+            </form>
+        </div>
+        
+    <script type="text/javascript" src="assets/js/script.js"></script>
+    <script>
+        // Máscara para aceitar apenas 4 dígitos (Ano de Nascimento)
+        document.getElementById('birthyear').addEventListener('input', function(e) {
+            let input = e.target.value;
+            input = input.replace(/\D/g, ""); // Remove caracteres não numéricos
+
+            if (input.length > 4) {
+                input = input.substring(0, 4); // Limita a entrada a 4 dígitos
+            }
+
+            e.target.value = input;
+        });
+    </script>
+</body>
+</html>

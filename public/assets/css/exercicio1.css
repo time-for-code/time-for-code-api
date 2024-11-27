@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+/* Aplicando a fonte Poppins */
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #FDF8F4;
+    color: #4c4c4c;
+    /* Cor do texto */
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 30px;
+}
+
+h2 {
+    font-size: 36px;
+    font-weight: 600;
+    color: #DBC4F8;
+    /* Cor do título */
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px;
+    color: #726a6a;
+    /* Cor do texto descritivo */
+    margin-bottom: 30px;
+}
+
+.rainbow-slots {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.slot {
+    width: 80px;
+    height: 80px;
+    background-color: #e0e0e0;
+    margin: 0 10px;
+    border-radius: 10px;
+    border: 2px dashed #9CCFCE;
+    /* Bordas dos slots */
+    transition: background-color 0.3s;
+}
+
+.color-palette {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.color {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.color:hover {
+    transform: scale(1.1);
+    /* Efeito de zoom ao passar o mouse */
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    margin: 15px;
+    background-color: #DBC4F8;
+    /* Rosa claro */
+    color: #FFF;
+    /* Texto branco */
+    border: none;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.btn:hover {
+    background-color: #c197f5;
+    /* Cor de hover */
+}
+
+#resultado {
+    font-size: 18px;
+    margin-top: 20px;
+    font-weight: 500;
+    color: #726ae3;
+    /* Cor de destaque do resultado */
+}
+
+/* Estilização do bloco de estatísticas */
+.estatisticas {
+    margin-top: 30px;
+    background-color: #f7eafc;
+    /* Fundo suave */
+    border: 1px solid #DBC4F8;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: left;
+    width: 100%;
+    max-width: 600px;
+    margin: 30px auto;
+    /* Centraliza o bloco de estatísticas */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* Sombra suave */
+}
+
+.estatisticas p {
+    font-size: 18px;
+    color: #4c4c4c;
+    margin-bottom: 10px;
+}
+
+.estatisticas strong {
+    color: #726ae3;
+    /* Cor de destaque */
+}
+
+.personagem {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    position: relative;
+    padding-top: 110px;
+    padding-right: 60%;
+    z-index: 2;
+}
+
+.text-content {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    z-index: inherit;
+    border-radius: 1rem;
+    padding: 10px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+
+    .rainbow-slots,
+    .color-palette {
+        flex-wrap: wrap;
+    }
+
+    .slot,
+    .color {
+        margin: 10px;
+        width: 60px;
+        height: 60px;
+    }
+
+    h2 {
+        font-size: 28px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    .btn {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+
+    .estatisticas {
+        padding: 15px;
+    }
+
+    .estatisticas p {
+        font-size: 16px;
+    }
+}

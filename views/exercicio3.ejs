@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caça ao Tesouro</title>
+  <link rel="stylesheet" type="text/css" href="../public/assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="../public/assets/css/exercicio3.css">
+</head>
+
+<body>
+
+  <div id="page">
+    <h2>Caça ao Tesouro</h2>
+    <div id="Message-Container" onload="toggleVisablity('Message-Container')">
+      <div id="message">
+        <h1>Parabéns!</h1>
+        <p>Você finalizou a tarefa.</p>
+        <p id="moves"></p>
+        <a href="exercicio4.html">
+          <button id="okBtn">Legal!</button>
+        </a>
+      </div>
+    </div>
+
+    <div class="background">
+      <img class="wave" src="../public/img/wave2.png" alt="wave">
+      <img class="waveInverted" src="../public/img/wave3.png" alt="wave">
+    </div>
+
+    <div id="view" onload="makeMaze()">
+      <div id="mazeContainer" style="visibility: hidden;">
+        <canvas id="mazeCanvas" class="border" height="1100" width="1100"></canvas>
+      </div>
+    </div>
+
+    <div id="personagem"class="personagem" style="visibility: visible;">
+      <img class="Cadu" src="../public/img/cadu.png" alt="Cadu">
+      <div class="text-content">
+        <p id="instructions">Nevege o labirinto com as flechas do teclado e segue minhas instruções para encontrar o tesouro.</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.18/jquery.touchSwipe.min.js"></script>
+
+  <script type="text/javascript" src="../public/assets/js/exercicio3.js"></script>
+</body>
+
+</html>
