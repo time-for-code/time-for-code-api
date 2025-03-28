@@ -82,8 +82,11 @@
 
 import express from "express";
 import routes from "./src/routes/userRoutes.js";
+import swaggerDocs from "./src/config/swaggerConfig.js";
 
 const app = express();
+// app.use(cors());
+swaggerDocs(app);
 
 routes(app);
 
