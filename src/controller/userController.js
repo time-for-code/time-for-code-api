@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { newUserRegister, signUpUser } from "../config/database.js";
+import { newUserRegister, signUpUser, retrieveAllUsers } from "../config/database.js";
 
 const user = z.object({
     name: z.string().nonempty({ message: "Nome inválido" }),
@@ -17,9 +17,10 @@ export async function registerNewUser(req, res) {
         
         const newUser = await newUserRegister(name, yearOfBirth, email, password);  
         
-        // if (!newUser) {
-        //     res.status(400).json({ "Error": "Bad Request" });
-        // }
+        if (!newUser) {
+            res.status(400).json({ "Error": "Bad Request" });
+        }
+
         res.location(`/users/${newUser.id}`);
         res.status(201).json(newUser);
     } catch (error) {
@@ -47,3 +48,14 @@ export async function userLogIn(req, res) {
 
 }
 
+export async function getAllUsers(req, res) {
+    try {
+        const users = await retrieveAllUsers();
+        if (!users) {
+            res.status(404).json({ "Error": "Not Found" });
+        }
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(404).json({ "Error": "Not Found" });
+    }
+}

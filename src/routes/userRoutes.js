@@ -1,16 +1,18 @@
 import express from "express";
 import cors from "cors";
-import { registerNewUser, userLogIn } from "../controller/userController.js";
+import { getAllUsers, registerNewUser, userLogIn } from "../controller/userController.js";
 
 const corsOptions = {
-    origin: "http://localhost:5000",
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 const userRoutes = (app) => {
 
     app.use(express.json());
     
-    // app.use(cors(corsOptions));
+    app.use(cors(corsOptions));
 
     /**
      * @swagger
@@ -71,6 +73,8 @@ const userRoutes = (app) => {
      *         description: Credenciais inválidas
     */
     app.post("/login", userLogIn);
+
+    app.get("/users", getAllUsers);
 
 };
 

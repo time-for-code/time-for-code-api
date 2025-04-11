@@ -1,30 +1,32 @@
-import pg from "pg";
-const { Pool } = pg;
-
+import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 
-const pool = new Pool({
-    host: process.env.POSTGRES_HOST,
-    user: process.env.POSTGRES_USER,
-    password: process.env.POSTGRES_PASSWORD,
-    database: process.env.POSTGRES_DATABASE,
-});
+const prisma = new PrismaClient();
 
 export async function newUserRegister(name, yearOfBirth, email, password) {
     try {
 
+        yearOfBirth = yearOfBirth.toString();
         const hash = await bcrypt.hash(password, 15);
 
-        const newUser = { name, yearOfBirth, email, hash };
+        const userRegistered = await prisma.user.create({
+            data: {
+                name,
+                year_of_birth: yearOfBirth,
+                email,
+                password: hash
+            }
+        });
 
-        pool.query(`INSERT INTO users
-            (name, year_of_birth, email, password) VALUES ($1, $2, $3, $4)`,
-            [name, yearOfBirth, email, hash]);
+        if (!userRegistered) {
+            return null;
+        }
 
-        const registeredUser = { "name" : newUser.name };
-        return registeredUser; 
+        return { name: userRegistered.name, id: userRegistered.user_id };
+
     } catch (error) {
         console.log(error);
+        return null;
     }
 }
 
@@ -32,27 +34,42 @@ export async function signUpUser(email, password) {
 
     try {
 
-        const emailCheck = await pool.query(`
-                SELECT email FROM users WHERE email = $1
-            `, [email]);
-        
-        if (emailCheck.rows[0].email !== email) {
-            return null;
-        }
-        const user = await pool.query(`
-                SELECT name, year_of_birth, email, password
-                FROM users
-                WHERE email = $1
-            `, [emailCheck.rows[0].email]);
+        const user = await prisma.user.findUnique({
+            where: { email }
+        });
+
 
         const decryptedPassword = await bcrypt.compare(
-            password, user.rows[0].password);
+            password, user.password);
         console.log(decryptedPassword);
 
         if (decryptedPassword) {
             return true;
         }
         
+    } catch (error) {
+        return false;
+    }
+}
+
+export async function retrieveAllUsers() {
+    try {
+
+        const users = await prisma.user.findMany({
+            select: {
+                user_id: true,
+                name: true,
+                year_of_birth: true,
+                email: true,
+                password: false
+            }
+        });
+
+        if (!users) {
+            return false;
+        }
+
+        return users;
     } catch (error) {
         return false;
     }
