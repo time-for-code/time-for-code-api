@@ -18,13 +18,14 @@ export async function registerNewUser(req, res) {
         const newUser = await newUserRegister(name, yearOfBirth, email, password);  
         
         if (!newUser) {
-            res.status(400).json({ "Error": "Bad Request" });
+            return res.status(400).json({ "Error": "Bad Request" });
         }
 
         res.location(`/users/${newUser.id}`);
-        res.status(201).json(newUser);
+        return res.status(201).json(newUser);
     } catch (error) {
-        res.status(400).json({ "Error": "Bad Request" });
+        console.log(error.status)
+        return res.status(400).json({ "Error": "Bad Request" });
     }
 }
 
@@ -39,11 +40,11 @@ export async function userLogIn(req, res) {
         const isValid = await signUpUser(email, password);
 
         if (!isValid) {
-            res.status(401).json({ "Authentication": "Unauthorized" });
+            return res.status(401).json({ "Authentication": "Unauthorized" });
         }
-        res.status(202).json({ "Authentication": "User authenticated" });
+        return res.status(202).json({ "Authentication": "User authenticated" });
     } catch (error) {
-        res.status(401).json({ "Authentication": "Unauthorized" });
+        return res.status(401).json({ "Authentication": "Unauthorized" });
     }
 
 }
@@ -52,10 +53,10 @@ export async function getAllUsers(req, res) {
     try {
         const users = await retrieveAllUsers();
         if (!users) {
-            res.status(404).json({ "Error": "Not Found" });
+            return res.status(404).json({ "Error": "Not Found" });
         }
-        res.status(200).json(users);
+        return res.status(200).json(users);
     } catch (error) {
-        res.status(404).json({ "Error": "Not Found" });
+        return res.status(404).json({ "Error": "Not Found" });
     }
 }
