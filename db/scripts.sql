@@ -13,6 +13,8 @@ CREATE TABLE statistic (
     total_attempts INT NOT NULL DEFAULT 0,
     time_of_conclusion DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
     finished BOOLEAN NOT NULL DEFAULT FALSE,
+    total_of_points DECIMAL(10, 2) DEFAULT 0.0,
+    created_at DATE NOT NULL DEFAULT NOW(),
     user_id UUID NOT NULL
 );
 

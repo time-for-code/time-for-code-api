@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import { getAllUsers, registerNewUser, userLogIn } from "../controller/userController.js";
+import { authenticateToken } from "../config/authMiddleware.js";
+import { registerExerciseStatistics } from "../controller/statisticController.js";
 
 const corsOptions = {
     origin: "http://localhost:5173",
@@ -75,6 +77,13 @@ const userRoutes = (app) => {
     app.post("/login", userLogIn);
 
     app.get("/users", getAllUsers);
+
+    app.post("/statistics/:id", registerExerciseStatistics);
+
+    // TODO app.get("/users/:id", authenticateToken, (req, res) => {
+
+    // app.get("/performance/:id", )
+    // app.get("/ranking/:id", );
 
 };
 

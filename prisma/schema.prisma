@@ -14,5 +14,22 @@ model User {
   email         String @unique @db.VarChar(255)
   password      String @db.VarChar(255)
 
+  statistics    Statistic[]
+
   @@map("users")
 }
+
+model Statistic {
+  statistic_id        String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  total_attempts      Decimal @db.Decimal(10, 2)
+  time_of_conclusion  Decimal @db.Decimal(10, 2)
+  finished            Boolean @default(false)
+  total_of_points     Decimal @db.Decimal(10, 2)
+  created_at          DateTime @default(now())
+  user_id             String @db.Uuid
+  user                User @relation(fields: [user_id], references: [user_id])
+
+  @@index([user_id], name: "fk_statistics_users")
+  @@map("statistics")
+}
+

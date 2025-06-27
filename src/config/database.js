@@ -15,7 +15,7 @@ export async function newUserRegister(name, yearOfBirth, email, password) {
                 year_of_birth: yearOfBirth,
                 email,
                 password: hash
-            }
+            },  
         });
 
         if (!userRegistered) {
@@ -74,3 +74,33 @@ export async function retrieveAllUsers() {
         return false;
     }
 }
+
+// TODO export async function retrieveUserById(id)
+
+export async function saveExerciseStatistics(total_attempts, time_of_conclusion, finished, total_of_points, id) {
+    try {
+
+        const exerciseStatistics = await prisma.statistic.create({
+            data: {
+                total_attempts,
+                time_of_conclusion,
+                finished,
+                total_of_points,
+                user_id : id
+            }
+        })
+
+        if (!exerciseStatistics) {
+            return false;
+        }
+
+        return { is_finished: exerciseStatistics.finished, total_points: exerciseStatistics.total_of_points, user_id: exerciseStatistics.user_id };
+
+
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
+

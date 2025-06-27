@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import jwt from 'jsonwebtoken';
 import { newUserRegister, signUpUser, retrieveAllUsers } from "../config/database.js";
 
 const user = z.object({
@@ -8,12 +9,20 @@ const user = z.object({
     password: z.string().min(8, { message: "Senha inválida" }),
 });
 
+const loginSchema = z.object({
+    email: z.string().email({ message: "E-mail inválido" }),
+    password: z.string().min(8, { message: "Senha inválida" }),
+});
+
 export async function registerNewUser(req, res) {
 
     try {
+
+        user.parse(req.body); // Lança exceção se campos são inválidos
+
         const { name, yearOfBirth, email, password } = req.body;
         
-        user.parse({ name, yearOfBirth, email, password });
+        // user.parse({ name, yearOfBirth, email, password });
         
         const newUser = await newUserRegister(name, yearOfBirth, email, password);  
         
@@ -25,6 +34,9 @@ export async function registerNewUser(req, res) {
         return res.status(201).json(newUser);
     } catch (error) {
         console.log(error.status)
+        if (error instanceof z.ZodError) {
+            return res.status(400).json({ errors: error.errors });
+        }
         return res.status(400).json({ "Error": "Bad Request" });
     }
 }
@@ -33,17 +45,26 @@ export async function userLogIn(req, res) {
 
     try {
 
+        loginSchema.parse(req.body); // Lança exceção se campos são inválidos
+
         const { email, password } = req.body;
-
-        // user.parse({ email, password });
-
         const isValid = await signUpUser(email, password);
 
         if (!isValid) {
             return res.status(401).json({ "Authentication": "Unauthorized" });
         }
+
+        const token = jwt.sign(
+            { email },
+            env(JWT_SECRET_KEY) || "default_secret_key",
+            { expiresIn: '1h' }
+        );
+
         return res.status(202).json({ "Authentication": "User authenticated" });
     } catch (error) {
+        if (error instanceof z.ZodError) {
+            return res.status(400).json({ errors: error.errors });
+        }
         return res.status(401).json({ "Authentication": "Unauthorized" });
     }
 
