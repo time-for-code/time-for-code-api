@@ -77,7 +77,7 @@ export async function retrieveAllUsers() {
 
 // TODO export async function retrieveUserById(id)
 
-export async function saveExerciseStatistics(total_attempts, time_of_conclusion, finished, total_of_points, id) {
+export async function saveExerciseStatistics(total_attempts, time_of_conclusion, finished, total_of_points, user_id) {
     try {
 
         const exerciseStatistics = await prisma.statistic.create({
@@ -86,7 +86,7 @@ export async function saveExerciseStatistics(total_attempts, time_of_conclusion,
                 time_of_conclusion,
                 finished,
                 total_of_points,
-                user_id : id
+                user_id
             }
         })
 
@@ -103,4 +103,54 @@ export async function saveExerciseStatistics(total_attempts, time_of_conclusion,
     }
 }
 
+export async function getAllUsersWithStatistics(user_id) {
+    try {
+        const users = await prisma.user.findMany({
+            omit: {
+                name: true,
+                year_of_birth: true,
+                email: true,
+                password: true
+            },
+            where: {
+                user_id
+            },
+            include: {
+                statistics: {
+                    orderBy: {
+                        total_of_points: "desc"
+                    }
+                }
+            }
+        });
 
+        if (!users) {
+            return false;
+        }
+
+        return users;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
+export async function getPerformanceOfUserId(user_id) {
+    try {
+        const performance = await prisma.statistic.findMany({
+            where: { user_id },
+            orderBy: { created_at: "desc" }
+        });
+
+        if (!performance) {
+            return false;
+        }
+        // const { total_attempts, time_of_conclusion, finished, total_of_points } = performance[0];
+
+        // return { total_attempts, time_of_conclusion, finished, total_of_points };
+        return performance;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}

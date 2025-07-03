@@ -56,11 +56,18 @@ export async function userLogIn(req, res) {
 
         const token = jwt.sign(
             { email },
-            env(JWT_SECRET_KEY) || "default_secret_key",
+            process.env.JWT_SECRET_KEY || "default_secret_key",
             { expiresIn: '1h' }
         );
 
-        return res.status(202).json({ "Authentication": "User authenticated" });
+        if (!token) {
+            return res.status(500).json({ "Error": "Internal Server Error" });
+        }
+
+        return res.status(202).json({ 
+            "Authentication": "User Authenticated",
+            "token": token
+        });
     } catch (error) {
         if (error instanceof z.ZodError) {
             return res.status(400).json({ errors: error.errors });

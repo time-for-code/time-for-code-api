@@ -3,9 +3,12 @@ import cors from "cors";
 import { getAllUsers, registerNewUser, userLogIn } from "../controller/userController.js";
 import { authenticateToken } from "../config/authMiddleware.js";
 import { registerExerciseStatistics } from "../controller/statisticController.js";
+import { getAllUsersAndRanking, getPerformanceByUserId } from "../controller/perfomanceController.js";
 
 const corsOptions = {
-    origin: "http://localhost:5173",
+    origin: process.env.NODE_ENV === 'production' 
+    ? ["https://seu-app-frontend.render.com", "https://seu-dominio.com"] 
+    : "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
 };
@@ -67,7 +70,7 @@ const userRoutes = (app) => {
      *                 example: "usuario@email.com"
      *               password:
      *                 type: string
-     *                 example: "123456"
+     *                 example: "12345678!$"
      *     responses:
      *       202:
      *         description: Login bem-sucedido
@@ -78,7 +81,11 @@ const userRoutes = (app) => {
 
     app.get("/users", getAllUsers);
 
-    app.post("/statistics/:id", registerExerciseStatistics);
+    app.post("/statistics/:user_id", registerExerciseStatistics);
+
+    app.get("/performance/:user_id", getPerformanceByUserId);
+
+    app.get("/ranking/:user_id", getAllUsersAndRanking);
 
     // TODO app.get("/users/:id", authenticateToken, (req, res) => {
 

@@ -9,7 +9,7 @@ export function authenticateToken(req, res, next) {
     }
 
     jwt.verify(token, env(JWT_SECRET_KEY) || "default_secret_key", 
-        (err, user) => {
+        (error, user) => {
         if (error) {
             return res.status(403).json({ "Authentication": "Forbidden" });
         }

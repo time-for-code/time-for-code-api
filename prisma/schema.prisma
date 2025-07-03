@@ -26,10 +26,44 @@ model Statistic {
   finished            Boolean @default(false)
   total_of_points     Decimal @db.Decimal(10, 2)
   created_at          DateTime @default(now())
+  
   user_id             String @db.Uuid
+  exercise_statistics ExerciseStatistic[]
+
   user                User @relation(fields: [user_id], references: [user_id])
 
   @@index([user_id], name: "fk_statistics_users")
   @@map("statistics")
 }
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+  EXPERT
+}
+
+model Exercise {
+  exercise_id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name            String @db.VarChar(255)
+  difficulty      Difficulty
+
+  exercise_statistics ExerciseStatistic[]
+
+  @@map("exercise")
+}
+
+model ExerciseStatistic {
+  exercise_statistic_id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  statistic_id          String @db.Uuid
+  exercise_id           String @db.Uuid
+  statistic             Statistic @relation(fields: [statistic_id], references: [statistic_id])
+  exercise              Exercise @relation(fields: [exercise_id], references: [exercise_id])
+
+  @@index([statistic_id], name: "fk_exercise_statistics_statistics")
+  @@index([exercise_id], name: "fk_exercise_statistics_exercises")
+  @@map("exercise_statistic")
+}
+
+
 
