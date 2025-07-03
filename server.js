@@ -8,6 +8,6 @@ const PORT = process.env.PORT || 3000;
 swaggerDocs(app);
 routes(app);
 
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, () => {
     console.log(`Servidor está sendo executado na porta ${PORT} :)`);
 });
