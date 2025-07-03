@@ -9,5 +9,5 @@ swaggerDocs(app);
 routes(app);
 
 app.listen(PORT, '0.0.0.0', () => {
-    // console.log(`Servidor está sendo executado na porta ${PORT} :)`);
+    console.log(`Servidor está sendo executado na porta ${PORT} :)`);
 });
