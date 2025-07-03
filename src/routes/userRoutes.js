@@ -6,9 +6,6 @@ import { registerExerciseStatistics } from "../controller/statisticController.js
 import { getAllUsersAndRanking, getPerformanceByUserId } from "../controller/perfomanceController.js";
 
 const corsOptions = {
-    origin: process.env.NODE_ENV === 'production' 
-    ? ["https://time-for-code-front-end.vercel.app", "https://seu-dominio.com"] 
-    : "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
 };
