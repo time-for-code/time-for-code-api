@@ -5,16 +5,11 @@ import { authenticateToken } from "../config/authMiddleware.js";
 import { registerExerciseStatistics } from "../controller/statisticController.js";
 import { getAllUsersAndRanking, getPerformanceByUserId } from "../controller/perfomanceController.js";
 
-const corsOptions = {
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-};
-
 const userRoutes = (app) => {
 
     app.use(express.json());
     
-    app.use(cors(corsOptions));
+    app.use(cors());
 
     /**
      * @swagger
