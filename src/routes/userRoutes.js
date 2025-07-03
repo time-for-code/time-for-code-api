@@ -7,7 +7,7 @@ import { getAllUsersAndRanking, getPerformanceByUserId } from "../controller/per
 
 const corsOptions = {
     origin: process.env.NODE_ENV === 'production' 
-    ? ["https://seu-app-frontend.render.com", "https://seu-dominio.com"] 
+    ? ["https://time-for-code-front-end.vercel.app", "https://seu-dominio.com"] 
     : "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
