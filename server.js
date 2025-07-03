@@ -8,6 +8,10 @@ const PORT = process.env.PORT || 3000;
 swaggerDocs(app);
 routes(app);
 
+app.get("/", (req, res) => {
+    res.send("API está rodando! 🚀");
+});
+
 app.listen(PORT, () => {
     console.log(`Servidor está sendo executado na porta ${PORT} :)`);
 });
