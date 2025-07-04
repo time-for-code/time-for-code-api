@@ -20,11 +20,11 @@ router.use(cors());
 router.use(express.json());
 
 // rotas
-router.post("/register", registerNewUser);
-router.post("/login", userLogIn);
-router.get("/users", getAllUsers);
-router.post("/statistics/:user_id", registerExerciseStatistics);
-router.get("/performance/:user_id", getPerformanceByUserId);
-router.get("/ranking/:user_id", getAllUsersAndRanking);
+router.post("/api/register", registerNewUser);
+router.post("/qpi/login", userLogIn);
+router.get("/api/users", getAllUsers);
+router.post("/api/statistics/:user_id", registerExerciseStatistics);
+router.get("/api/performance/:user_id", getPerformanceByUserId);
+router.get("/api/ranking/:user_id", getAllUsersAndRanking);
 
 export default router;
