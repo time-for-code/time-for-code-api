@@ -1,13 +1,10 @@
 import express from "express";
-import cors from "cors";
 import {
   getAllUsers,
   registerNewUser,
   userLogIn
 } from "../controller/userController.js";
-import {
-  registerExerciseStatistics
-} from "../controller/statisticController.js";
+import { registerExerciseStatistics } from "../controller/statisticController.js";
 import {
   getAllUsersAndRanking,
   getPerformanceByUserId
@@ -15,16 +12,15 @@ import {
 
 const router = express.Router();
 
-// middlewares
-router.use(cors());
+// Middlewares aplicados somente nesse router
 router.use(express.json());
 
-// rotas
-router.post("/api/register", registerNewUser);
-router.post("/qpi/login", userLogIn);
-router.get("/api/users", getAllUsers);
-router.post("/api/statistics/:user_id", registerExerciseStatistics);
-router.get("/api/performance/:user_id", getPerformanceByUserId);
-router.get("/api/ranking/:user_id", getAllUsersAndRanking);
+// Rotas
+router.post("/register", registerNewUser);
+router.post("/login", userLogIn);
+router.get("/users", getAllUsers);
+router.post("/statistics/:user_id", registerExerciseStatistics);
+router.get("/performance/:user_id", getPerformanceByUserId);
+router.get("/ranking/:user_id", getAllUsersAndRanking);
 
 export default router;
