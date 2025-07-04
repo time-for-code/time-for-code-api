@@ -6,21 +6,21 @@ import swaggerDocs from "./src/config/swaggerConfig.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middlewares globais
+// middlewares globais
 app.use(express.json());
 app.use(cors());
 
-// Rota simples para confirmar funcionamento
+// rota de saúde
 app.get("/", (req, res) => {
   res.send("API funcionando!");
 });
 
-// Swagger
+// 1) acontece antes do Swagger
+app.use("/", userRoutes);
+
+// 2) só depois registramos o Swagger
 swaggerDocs(app);
 
-// Rotas principais (sem prefixo /api)
-app.use(userRoutes);
-
-app.listen(PORT, () => {
-  console.log(`Servidor está sendo executado na porta ${PORT}`);
-});
+app.listen(PORT, () =>
+  console.log(`Servidor rodando na porta ${PORT}`)
+);
